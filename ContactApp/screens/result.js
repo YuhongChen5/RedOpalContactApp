@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, FlatList, Text, StyleSheet, Button, TextInput } from "react-native";
+import styles from "../services/css";
 
 export default function SearchResult({navigation}) {
 
@@ -14,12 +15,3 @@ export default function SearchResult({navigation}) {
         </View>
     )
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'center',
-    },
-  });

@@ -1,10 +1,10 @@
-const testData = [
+const data = [
     {
         Id: 1,
         FirstName: "John",
         LastName: "Smith",
         Phone: "02 9988 2211",
-        Department: 1,
+        Department: "1",
         Street: "1 Code Lane",
         City: "Javaville",
         State: "NSW",
@@ -16,7 +16,7 @@ const testData = [
         FirstName: "Sue",
         LastName: "White",
         Phone: "03 8899 2255",
-        Department: 2,
+        Department: "2",
         Street: "16 Bit Way",
         City: "Byte Cove",
         State: "QLD",
@@ -28,7 +28,7 @@ const testData = [
         FirstName: "Bob",
         LastName: "O'Bits",
         Phone: "05 7788 2255",
-        Department: 3,
+        Department: "3",
         Street: "8 Silicon Road",
         City: "Cloud Hills",
         State: "VIC",
@@ -40,7 +40,7 @@ const testData = [
         FirstName: "Mary",
         LastName: "Blue",
         Phone: "06 4455 9988",
-        Department: 2,
+        Department: "2",
         Street: "4 Processor Boulevard",
         City: "Appletson",
         State: "NT",
@@ -52,7 +52,7 @@ const testData = [
         FirstName: "Mick",
         LastName: "Green",
         Phone: "02 9988 1122",
-        Department: 3,
+        Department: "3",
         Street: "700 Bandwidth Street",
         City: "Bufferland",
         State: "NSW",
@@ -61,4 +61,4 @@ const testData = [
     }
 ];
 
-module.exports = testData;
+module.exports = data;

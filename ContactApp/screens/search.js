@@ -1,37 +1,94 @@
 import React, { useState } from "react";
-import { View, FlatList, Text, StyleSheet, Button, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert, Button } from "react-native";
+import styles from "../services/css";
 
-
+//use route to get data passed from other page
+//use navigation to ensure it still can navigate to other pages
 export default function SearchScreen({navigation}) {
-    const [id, setId] = useState();
+    //const { contact } = route.params;
+    
+    const [id, setId] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
+    const [departmentId, setDepartmentId] = useState('');
+    const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZIP] = useState('');
+    const [country, setCountry] = useState('');
+
+    //const createAlert = () =>
+        Alert.alert(
+            'Red Opal Contact', 
+            'At least one searching criteria needed!',
+            [
+                {text: 'Ok', onPress: () => {}},
+            ]);
+    
+    
+    function searchContact() {
+        if (id=='') {
+            createAlert();
+            //===firstName===lastName===phone===departmentId===address===city===state===zip===country
+        } else {
+
+        }
+    };
 
     return (
-        <View style={styles.container}>
-            <Text>Fill in the search criteria:</Text>
-            <TextInput placeholder="Enter ID" value={id} onChangeText={(text) => setId(text)} />
-            <TextInput placeholder="Enter First Name" value={firstName} onChangeText={(text) => setFirstName(text)} />
-            <TextInput placeholder="Enter Last Name" value={lastName} onChangeText={(text) => setLastName(text)} />
-            <TextInput placeholder="Enter phone number (starting with area code)" value={phone} onChangeText={(text) => setPhone(text)} />
-            <TextInput placeholder="Enter city" value={city} onChangeText={(text) => setCity(text)} />
-            <TextInput placeholder="Enter state" value={state} onChangeText={(text) => setState(text)} />
-            <TextInput placeholder="Enter ZIP" value={zip} onChangeText={(text) => setZIP(text)} />
-            <Button title="Search" onPress={(e) => navigation.navigate("Search Result")} />
-            <Button title="Back to full list" onPress={(e) => navigation.navigate("Full List")} />
-            <Button title="Back to home page" onPress={(e) => navigation.navigate("Home")} />
+        <View style={[styles.container, {justifyContent: "space-between"}]}>
+            <View>
+                <Text style={{marginLeft: 10, marginVertical: 10}}>Fill in the search details:</Text>
+                <Text style={{marginLeft: 10}}>{'Id:\t\t\t\t'}
+                    <TextInput style={styles.textInput} value={id} onChangeText={(text) => setId(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'First Name:\t\t'}
+                    <TextInput style={styles.textInput} value={firstName} onChangeText={(text) => setFirstName(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'Last Name:\t\t'}
+                    <TextInput style={styles.textInput} value={lastName} onChangeText={(text) => setLastName(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'Phone:\t\t\t'}
+                    <TextInput style={styles.textInput} value={phone} onChangeText={(text) => setPhone(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'Department Id:\t'}
+                    <TextInput style={styles.textInput} value={departmentId} onChangeText={(text) => setDepartmentId(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'Address:\t\t\t'}
+                    <TextInput style={styles.textInput} value={address} onChangeText={(text) => setAddress(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'City:\t\t\t\t'}
+                    <TextInput style={styles.textInput} value={city} onChangeText={(text) => setCity(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'State:\t\t\t'}
+                    <TextInput style={styles.textInput} value={state} onChangeText={(text) => setState(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'ZIP:\t\t\t\t'}
+                    <TextInput style={styles.textInput} value={zip} onChangeText={(text) => setZIP(text)} />
+                </Text>
+                <Text style={{marginLeft: 10}}>{'Country:\t\t\t'}
+                    <TextInput style={styles.textInput} value={country} onChangeText={(text) => setCountry(text)} />
+                </Text>
+            </View>
+            <View>
+                <TouchableOpacity
+                    style={styles.mainButton}
+                    onPress={searchContact()}>
+                        <Text style={styles.mainBtnText}>Search</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.mainButton}
+                    onPress={(e) => navigation.navigate('Full List')}>
+                        <Text style={styles.mainBtnText}>Back to Full List</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.mainButton}
+                    onPress={(e) => navigation.navigate('Home')}>
+                        <Text style={styles.mainBtnText}>Back to Home Page</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-    );
+    )
 }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'center',
-    },
-  });

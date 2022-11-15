@@ -9,17 +9,22 @@ import FullListScreen from './screens/fullList';
 import UpdateScreen from './screens/update';
 
 const Stack = createNativeStackNavigator();
+const theme = {
+  colors: {
+    background: "#f5f5f5",
+  },
+};
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='Search' component={SearchScreen} />
         <Stack.Screen name='Full List' component={FullListScreen} />
         <Stack.Screen name='Search Result' component={ResultScreen} />
         <Stack.Screen name='Add New' component={AddScreen} />
-        <Stack.Screen name='Update Contact' component={UpdateScreen} />
+        <Stack.Screen name='Update Contact' component={UpdateScreen} />        
       </Stack.Navigator>
     </NavigationContainer>
   );
