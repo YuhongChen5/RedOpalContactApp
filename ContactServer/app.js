@@ -13,36 +13,36 @@ app.get('/api/contact/all', (req, res) => {
     res.json(contact);
 });
 
-app.get('/api/contact/search', (req, res) => {
-    if (req.query.id === undefined) {
-        res.status(400).send('Missing the query string parameter \'id\'!');
-        return;
-    }
-    const id = parseInt(req.query.Id);
-    if (isNaN(id)) {
-        res.status(400).send('The \'id\' parameter Must be an interger value!');
-        return;
-    }
-    const contact = contactDetail.getById(id)
-    if (contact !== null) {
-        res.json(contact);
-    } else {
-        res.status(400).send(`The contact with an id of ${id} could not be found`);
-    }
-});
-
 app.put('/api/contact/update', (req, res) => {
     const updatedContact = req.body;
     const contactList = contactDetail.getAll(); 
     for (const contact of contactList) {
         if (parseInt(updatedContact.Id) === contact.Id) {
             contactDetail.updateContact(updatedContact);
-            res.status(200).location('/api/contact/update').send('The contact has been updated')
+            res.status(200).send('The contact has been updated.')
             return;
         }} 
-    res.status(400).send(`The contact with an id of ${updatedContact.Id} could not be found`)   
+    res.status(400).send(`The contact with an id of ${updatedContact.Id} could not be found.`)   
     
 });
+
+app.get('/api/contact/search', (req, res) => {
+    const search = req.query;
+    search['Id'] = parseInt(search['Id']);
+    const contactList = contactDetail.getAll();
+    const result = [];
+    contactList.forEach(contact => {
+        Object.keys(contact).forEach(key => contact[key]===search[key]? result.push(contact) : null);           
+        } 
+    )
+    if (result.length===0) {
+        res.status(400).send(`The contact you are looking for doesn't exist.`);
+        return;
+    } else{
+        res.json(result);
+    }
+});
+
 
 app.post('/api/contact/add', (req, res) => {
 

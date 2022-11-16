@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, Button } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import styles from "../services/css";
+import { simpleAlert } from "../services/alert";
+import { searchContactOnApi, toCapital } from "../services/service";
 
-//use route to get data passed from other page
-//use navigation to ensure it still can navigate to other pages
 export default function SearchScreen({navigation}) {
-    //const { contact } = route.params;
-    
+    const [searchResult, setSearchResult] = useState([]);
+
     const [id, setId] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -17,22 +17,34 @@ export default function SearchScreen({navigation}) {
     const [state, setState] = useState('');
     const [zip, setZIP] = useState('');
     const [country, setCountry] = useState('');
-
-    //const createAlert = () =>
-        Alert.alert(
-            'Red Opal Contact', 
-            'At least one searching criteria needed!',
-            [
-                {text: 'Ok', onPress: () => {}},
-            ]);
-    
-    
-    function searchContact() {
-        if (id=='') {
-            createAlert();
-            //===firstName===lastName===phone===departmentId===address===city===state===zip===country
+              
+    const searchCondition = {
+        Id: id,
+        FirstName: toCapital(firstName),
+        LastName: toCapital(lastName),
+        Phone: phone,
+        Department: departmentId,
+        Street: toCapital(address),
+        City: toCapital(city),
+        State: state.toUpperCase() ,
+        ZIP: zip,
+        Country: toCapital(country)
+    };
+ 
+    function searchContact(condition) {
+        if (Object.values(condition).every(value => value ==='')) {
+            simpleAlert('At lease one search condition needed.');           
         } else {
-
+            //condition['Id'] = parseInt(condition['Id']);
+            searchContactOnApi(condition)
+            .then((data) => {
+                simpleAlert('Search successful.');
+                setSearchResult(data);              
+                navigation.navigate('Search Result', data);              
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         }
     };
 
@@ -74,7 +86,7 @@ export default function SearchScreen({navigation}) {
             <View>
                 <TouchableOpacity
                     style={styles.mainButton}
-                    onPress={searchContact()}>
+                    onPress={(e) => searchContact(searchCondition)}>
                         <Text style={styles.mainBtnText}>Search</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
