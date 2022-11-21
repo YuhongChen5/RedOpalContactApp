@@ -5,7 +5,6 @@ import styles from "../services/css";
 //use route to get data passed from other page
 //use navigation to ensure it still can navigate to other pages
 export default function SearchScreen({navigation}) {
-    //const { contact } = route.params;
     const [id, setId] = useState();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -51,8 +50,7 @@ export default function SearchScreen({navigation}) {
             </View>
             <View>
                 <TouchableOpacity
-                    style={styles.mainButton}
-                    >
+                    style={styles.mainButton}>
                         <Text style={styles.mainBtnText}>Create New</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
